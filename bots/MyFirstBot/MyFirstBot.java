@@ -1,6 +1,6 @@
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
-
+import java.util.Random;
 // ------------------------------------------------------------------
 // MyFirstBot
 // ------------------------------------------------------------------
@@ -25,11 +25,20 @@ public class MyFirstBot extends Bot {
     // Called when a new round is started -> initialize and do some movement
     @Override
     public void run() {
+        setBodyColor(Color.fromString("#FF0000"));  // light red
+        setTurretColor(Color.fromString("#FF0000")); // dark red
+        setRadarColor(Color.fromString("#FF0000"));  // bright red
+        setBulletColor(Color.fromString("#FF0000")); // soft red
+        setScanColor(Color.fromString("#FF0000"));   // pale red
+        Random random = new Random();
         // Repeat while the bot is running
         while (isRunning()) {
-            forward(100);
+            int movement= random.nextInt(4)+250;
+            forward(movement);
             turnGunRight(360);
-            back(100);
+            turnRight(90);
+            back(movement);
+            turnRight(45);
             turnGunRight(360);
         }
     }
@@ -37,7 +46,7 @@ public class MyFirstBot extends Bot {
     // We saw another bot -> fire!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
-        fire(1);
+        fire(3);
     }
 
     // We were hit by a bullet -> turn perpendicular to the bullet
@@ -48,5 +57,11 @@ public class MyFirstBot extends Bot {
 
         // Turn 90 degrees to the bullet direction based on the bearing
         turnLeft(90 - bearing);
+    }
+
+    public void onHitWall(HitWallEvent botHitWallEvent) {
+        forward(200);
+        turnLeft(45);
+        back(200);
     }
 }
