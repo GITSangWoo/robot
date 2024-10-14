@@ -1,9 +1,10 @@
 {
-  "name": "My First Bot",
+  "name": "SKT_T1",
   "version": "1.0",
   "authors": [
-    "Mathew Nelson",
-    "Flemming N. Larsen"
+    "Facker",
+    "GumaUsi",
+    "zeus"
   ],
   "description": "A sample bot that is probably the first bot you will learn about.",
   "homepage": "",
