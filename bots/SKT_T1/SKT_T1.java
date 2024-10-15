@@ -31,11 +31,12 @@ public class SKT_T1 extends Bot {
         setBulletColor(Color.fromString("#FF0000")); // soft red
         setScanColor(Color.fromString("#FF0000"));   // pale red
         Random random = new Random();
+        // int energy = getEnergy();
         int arenaX=getArenaWidth();
         int arenaY=getArenaHeight();
         // Repeat while the bot is running
         while (isRunning()) {
-            turnGunRight(180);
+            turnGunRight(360);
             int myX = (int) getX();
             int myY = (int) getY();
             int movement= random.nextInt(4)+250;
@@ -72,8 +73,15 @@ public class SKT_T1 extends Bot {
     @Override
     public void onScannedBot(ScannedBotEvent e) {
         var distance = distanceTo(e.getX(), e.getY());
-        if (distance < 150){
-            fire(3);
+        var bearingFromGun = gunBearingTo(e.getX(), e.getY());
+        // Turn the gun toward the scanned bot
+        turnGunLeft(bearingFromGun);
+        
+        if (distance < 480){
+            
+            setForward(10);
+            setFire(3);
+
         }
 
             
@@ -87,10 +95,6 @@ public class SKT_T1 extends Bot {
         // Turn 90 degrees to the bullet direction based on the bearing
         turnLeft(90 - bearing);
     }
+  
 
-    // public void onHitWall(HitWallEvent botHitWallEvent) {
-    //     forward(200);
-    //     turnLeft(45);
-    //     back(200);
-    // }
 }
